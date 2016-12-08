@@ -15,6 +15,8 @@
  */
 package com.windcake.okhttpanalysis.okhttp3.internal.http;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.util.List;
 import com.windcake.okhttpanalysis.okhttp3.Connection;
@@ -70,6 +72,8 @@ public final class RealInterceptorChain implements Interceptor.Chain {
 
   public Response proceed(Request request, StreamAllocation streamAllocation, HttpCodec httpCodec,
       Connection connection) throws IOException {
+//   index在RealCall中被初始化为0
+    Log.i("aaaaa","index:" + index);
     if (index >= interceptors.size()) throw new AssertionError();
 
     calls++;
@@ -87,12 +91,14 @@ public final class RealInterceptorChain implements Interceptor.Chain {
     }
 
     // Call the next interceptor in the chain.
-//    每次走到这都递归调用
     RealInterceptorChain next = new RealInterceptorChain(
         interceptors, streamAllocation, httpCodec, connection, index + 1, request);
+//   拿到本次拦截器
     Interceptor interceptor = interceptors.get(index);
-//    调用拦截方法
+//    调用本次拦截方法参数是 nextChain
     Response response = interceptor.intercept(next);
+
+
 
     // Confirm that the next interceptor made its required call to chain.proceed().
     if (httpCodec != null && index + 1 < interceptors.size() && next.calls != 1) {
