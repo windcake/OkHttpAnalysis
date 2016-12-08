@@ -15,6 +15,8 @@
  */
 package com.windcake.okhttpanalysis.okhttp3.internal.http;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.net.HttpRetryException;
@@ -102,6 +104,8 @@ public final class RetryAndFollowUpInterceptor implements Interceptor {
 
   @Override public Response intercept(Chain chain) throws IOException {
     Request request = chain.request();
+
+    Log.i("aaaaa","RetryAndFollowUpInterceptor 位置第一个");
 
     streamAllocation = new StreamAllocation(
         client.connectionPool(), createAddress(request.url()), callStackTrace);

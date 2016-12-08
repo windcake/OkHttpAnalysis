@@ -74,6 +74,8 @@ public final class RealInterceptorChain implements Interceptor.Chain {
       Connection connection) throws IOException {
 //   index在RealCall中被初始化为0
     Log.i("aaaaa","index:" + index);
+    Log.i("aaaaa","interceptors.size():" + interceptors.size());
+
     if (index >= interceptors.size()) throw new AssertionError();
 
     calls++;
@@ -91,11 +93,13 @@ public final class RealInterceptorChain implements Interceptor.Chain {
     }
 
     // Call the next interceptor in the chain.
-    RealInterceptorChain next = new RealInterceptorChain(
-        interceptors, streamAllocation, httpCodec, connection, index + 1, request);
+    RealInterceptorChain next = new RealInterceptorChain(interceptors, streamAllocation, httpCodec, connection, index + 1, request);
+    Log.i("aaaaa","next.index:" + next.index);
+    Log.i("aaaaa","next.toString:" + next.toString());
 //   拿到本次拦截器
     Interceptor interceptor = interceptors.get(index);
 //    调用本次拦截方法参数是 nextChain
+//    执行具体拦截器的拦截方法
     Response response = interceptor.intercept(next);
 
 

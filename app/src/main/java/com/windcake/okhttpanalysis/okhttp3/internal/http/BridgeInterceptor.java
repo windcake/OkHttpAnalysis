@@ -16,6 +16,8 @@
  */
 package com.windcake.okhttpanalysis.okhttp3.internal.http;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.util.List;
 import com.windcake.okhttpanalysis.okhttp3.Cookie;
@@ -47,7 +49,7 @@ public final class BridgeInterceptor implements Interceptor {
   @Override public Response intercept(Chain chain) throws IOException {
     Request userRequest = chain.request();
     Request.Builder requestBuilder = userRequest.newBuilder();
-
+    Log.i("aaaaa","BridgeInterceptor 位置第二个");
     RequestBody body = userRequest.body();
     if (body != null) {
       MediaType contentType = body.contentType();

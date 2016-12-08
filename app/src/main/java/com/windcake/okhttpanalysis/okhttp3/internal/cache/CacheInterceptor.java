@@ -16,6 +16,8 @@
  */
 package com.windcake.okhttpanalysis.okhttp3.internal.cache;
 
+import android.util.Log;
+
 import java.io.IOException;
 import com.windcake.okhttpanalysis.okhttp3.Headers;
 import com.windcake.okhttpanalysis.okhttp3.Interceptor;
@@ -53,7 +55,7 @@ public final class CacheInterceptor implements Interceptor {
     Response cacheCandidate = cache != null
         ? cache.get(chain.request())
         : null;
-
+    Log.i("aaaaa","CacheInterceptor 位置第三个");
     long now = System.currentTimeMillis();
 
     CacheStrategy strategy = new CacheStrategy.Factory(now, chain.request(), cacheCandidate).get();
