@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity
         Request request = new Request.Builder()
                                     .url("https://www.baidu.com")
                                      .build();
-
         Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback()
         {
@@ -34,13 +33,12 @@ public class MainActivity extends AppCompatActivity
             {
 
             }
-
             @Override
             public void onResponse(Call call, Response response) throws IOException
             {
+                Log.i("aaa","回调成功了");
                 Log.i("aaa",response.body().string());
             }
         });
-
     }
 }

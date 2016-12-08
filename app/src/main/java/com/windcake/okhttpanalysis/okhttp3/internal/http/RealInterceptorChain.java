@@ -27,6 +27,7 @@ import com.windcake.okhttpanalysis.okhttp3.internal.connection.StreamAllocation;
 /**
  * A concrete interceptor chain that carries the entire interceptor chain: all application
  * interceptors, the OkHttp core, all network interceptors, and finally the network caller.
+ * 所有的拦截器都在这，是OkHttp的核心。
  */
 public final class RealInterceptorChain implements Interceptor.Chain {
   private final List<Interceptor> interceptors;
@@ -86,9 +87,11 @@ public final class RealInterceptorChain implements Interceptor.Chain {
     }
 
     // Call the next interceptor in the chain.
+//    每次走到这都递归调用
     RealInterceptorChain next = new RealInterceptorChain(
         interceptors, streamAllocation, httpCodec, connection, index + 1, request);
     Interceptor interceptor = interceptors.get(index);
+//    调用拦截方法
     Response response = interceptor.intercept(next);
 
     // Confirm that the next interceptor made its required call to chain.proceed().

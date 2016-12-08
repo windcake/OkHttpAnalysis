@@ -35,7 +35,7 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 /**
  * This class coordinates the relationship between three entities:
- *
+ *  这个类里面有如下三个类的关系
  * <ul>
  *     <li><strong>Connections:</strong> physical socket connections to remote servers. These are
  *         potentially slow to establish so it is necessary to be able to cancel a connection
