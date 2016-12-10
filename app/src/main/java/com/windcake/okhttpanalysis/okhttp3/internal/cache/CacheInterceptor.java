@@ -84,6 +84,7 @@ public final class CacheInterceptor implements Interceptor {
     }
 
     // If we don't need the network, we're done.
+//    如果不需要网络 链式调用结束 直接return 也就是不再调用chain.proceed()
     if (networkRequest == null) {
       return cacheResponse.newBuilder()
           .cacheResponse(stripBody(cacheResponse))

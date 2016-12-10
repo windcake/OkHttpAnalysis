@@ -15,6 +15,8 @@
  */
 package com.windcake.okhttpanalysis.okhttp3.internal.http;
 
+import android.util.Log;
+
 import java.io.IOException;
 import java.net.ProtocolException;
 import com.windcake.okhttpanalysis.okhttp3.Interceptor;
@@ -27,6 +29,7 @@ import okio.Okio;
 import okio.Sink;
 
 /** This is the last interceptor in the chain. It makes a network call to the server. */
+// 这是拦截器chain里的最后一个，它向服务器发起一个网络请求。其它拦截器返回的都是proceed,唯独这个拦截器返回response
 public final class CallServerInterceptor implements Interceptor {
   private final boolean forWebSocket;
 
@@ -38,6 +41,7 @@ public final class CallServerInterceptor implements Interceptor {
     HttpCodec httpCodec = ((RealInterceptorChain) chain).httpStream();
     StreamAllocation streamAllocation = ((RealInterceptorChain) chain).streamAllocation();
     Request request = chain.request();
+    Log.i("aaaaa", "CallServerInterceptor 位置第五个");
 
     long sentRequestMillis = System.currentTimeMillis();
     httpCodec.writeRequestHeaders(request);

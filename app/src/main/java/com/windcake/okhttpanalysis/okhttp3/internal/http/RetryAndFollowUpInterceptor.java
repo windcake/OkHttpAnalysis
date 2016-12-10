@@ -56,6 +56,9 @@ import static com.windcake.okhttpanalysis.okhttp3.internal.http.StatusLine.HTTP_
 /**
  * This interceptor recovers from failures and follows redirects as necessary. It may throw an
  * {@link IOException} if the call was canceled.
+ *
+ * 自动重试和必要重定向
+ *
  */
 public final class RetryAndFollowUpInterceptor implements Interceptor {
   /**
@@ -104,8 +107,6 @@ public final class RetryAndFollowUpInterceptor implements Interceptor {
 
   @Override public Response intercept(Chain chain) throws IOException {
     Request request = chain.request();
-
-    Log.i("aaaaa","RetryAndFollowUpInterceptor 位置第一个");
 
     streamAllocation = new StreamAllocation(
         client.connectionPool(), createAddress(request.url()), callStackTrace);

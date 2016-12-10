@@ -16,6 +16,8 @@
  */
 package com.windcake.okhttpanalysis.okhttp3.internal.connection;
 
+import android.util.Log;
+
 import java.io.IOException;
 import com.windcake.okhttpanalysis.okhttp3.Interceptor;
 import com.windcake.okhttpanalysis.okhttp3.OkHttpClient;
@@ -36,6 +38,10 @@ public final class ConnectInterceptor implements Interceptor {
     RealInterceptorChain realChain = (RealInterceptorChain) chain;
 //  返回chain的构造方法里初始化的request
     Request request = realChain.request();
+
+    Log.i("aaaaa", "ConnectInterceptor 位置第四个");
+
+
 //  也是返回
     StreamAllocation streamAllocation = realChain.streamAllocation();
 

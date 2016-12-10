@@ -49,9 +49,15 @@ import static com.windcake.okhttpanalysis.okhttp3.internal.platform.Platform.WAR
  * Values are byte sequences, accessible as streams or files. Each value must be between {@code 0}
  * and {@code Integer.MAX_VALUE} bytes in length.
  *
+ * 每个cache实体有一个string类型的key，和固定数量的values。每个key必须满足这个正则表达式[a-z0-9_-]{1,64}。
+ * 而value的长度在0到Integer.MAX_VALUE之间。
+ *
  * <p>The cache stores its data in a directory on the filesystem. This directory must be exclusive
  * to the cache; the cache may delete or overwrite files from its directory. It is an error for
  * multiple processes to use the same cache directory at the same time.
+ *
+ *数据被缓存在磁盘的某个路径里，并在这个路径进行删除或者覆盖操作。
+ * 这个路径是排他的，也就是说两个Cache往同一个路径里写缓存文件会报错。
  *
  * <p>This cache limits the number of bytes that it will store on the filesystem. When the number of
  * stored bytes exceeds the limit, the cache will remove entries in the background until the limit
@@ -59,10 +65,14 @@ import static com.windcake.okhttpanalysis.okhttp3.internal.platform.Platform.WAR
  * files to be deleted. The limit does not include filesystem overhead or the cache journal so
  * space-sensitive applications should set a conservative limit.
  *
+ *缓存存在磁盘上数据的大小是有限制的，当超过这个限制，缓存系统就会在后台删除一些数据。
+ *然而这个限制也没用那么严格，暂时超过一会儿也没什么问题。这个限制不包括filesystem overhead和cache journal，
+ * 所以对空间敏感的应用应该谨慎的设置上限。
+ *
  * <p>Clients call {@link #edit} to create or update the values of an entry. An entry may have only
  * one editor at one time; if a value is not available to be edited then {@link #edit} will return
  * null.
- *
+ *Clients调用edit方法去产生或者更新一个cache的entry
  * <ul>
  *     <li>When an entry is being <strong>created</strong> it is necessary to supply a full set of
  *         values; the empty value should be used as a placeholder if necessary.

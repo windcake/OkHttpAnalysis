@@ -25,20 +25,29 @@ public class MainActivity extends AppCompatActivity
         Request request = new Request.Builder()
                                     .url("https://www.baidu.com")
                                      .build();
-        Call call = okHttpClient.newCall(request);
-        call.enqueue(new Callback()
+        try
         {
-            @Override
-            public void onFailure(Call call, IOException e)
-            {
+           Response response = okHttpClient.newCall(request).execute();
+            Log.i("aaa","同步调用结果：" + response.body().string());
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
 
-            }
-            @Override
-            public void onResponse(Call call, Response response) throws IOException
-            {
-                Log.i("aaa","回调成功了");
-                Log.i("aaa",response.body().string());
-            }
-        });
+//        Call call = okHttpClient.newCall(request);
+//        call.enqueue(new Callback()
+//        {
+//            @Override
+//            public void onFailure(Call call, IOException e)
+//            {
+//
+//            }
+//            @Override
+//            public void onResponse(Call call, Response response) throws IOException
+//            {
+//                Log.i("aaa","回调成功了");
+//                Log.i("aaa",response.body().string());
+//            }
+//        });
     }
 }
